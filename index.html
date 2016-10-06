@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Beta Shop</title>
+</head>
+<body>
+<p>Iniciar sesi&oacute;n con Facebook:cambio1</p>
+<fb:login-button perms="email,user_birthday"></fb:login-button>
+<script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
+<script>
+$(function() {
+  $.ajax({
+
+    //url: '//connect.facebook.net/en_US/sdk.js',
+    url: '//connect.facebook.net/es_ES/all.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      alert('Facebook listo');
+      FB.init({
+        appId      : '1009400082482524',
+        status     : true,
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+      FB.Event.subscribe('auth.authResponseChange', function(response) {
+                if (response && response.status == 'connected') {
+                            alert('conectado');
+                            FB.api('/me',{"fields":"id,name,age_range"}, function(response) {
+                           alert('Nombre: ' + response.id+response.name+response.age_range);
+                            });
+              };
+         });
+
+
+       }
+      });
+});
+</script>
+
+
+</body>
+</html>
