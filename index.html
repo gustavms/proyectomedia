@@ -5,33 +5,34 @@
 <title>Media Project</title>
 <script>
 var ultimopostdecadapagina = [];
-var paginas5minutos =[{id:71263708835, urlface:"https://www.facebook.com/elcomercio.pe",url:"https://www.facebook.com/elcomercio.pe",pais:"Peru",nombre:"Comercio",hastag:"@Diario El Comercio (Perú)" }, //5minutos
-                     {id:32813056753, urlface:"https://www.facebook.com/rppnoticias",url:"https://www.facebook.com/elcomercio.pe",pais:"Peru",nombre:"Rpp Noticias", hastag:"@RPP Noticias"},//5minutos
-                     {id:57527494924, urlface:"https://www.facebook.com/CorreoPeru",url:"http://diariocorreo.pe",pais:"Peru",nombre:"Correo", hastag:"@Diario Correo"},//5minutos
+//estas son las paginas de facebook
+var paginas5minutos =[{id:71263708835, urlface:"https://www.facebook.com/elcomercio.pe",url:"http://elcomercio.pe",pais:"Peru",nombre:"Comercio",hastag:"@Diario El Comercio (Perú)" }, //5minutos
+                     {id:32813056753, urlface:"https://www.facebook.com/rppnoticias",url:"http://rpp.pe",pais:"Peru",nombre:"Rpp Noticias", hastag:"@RPP Noticias"},//5minutos
+                     {id:57527494924, urlface:"https://www.facebook.com/CorreoPeru",url:"http://diariocorreo.pe",pais:"Peru",nombre:"Diario Correo", hastag:"@Diario Correo"},//5minutos
                      {id:94604237016, urlface:"https://www.facebook.com/larepublicape",url:"http://larepublica.pe",pais:"Peru",nombre:"La Republica", hastag:"@Diario La República" },//5minutos
                      {id:50842855867, urlface:"https://www.facebook.com/peru21",url:"http://peru21.pe",pais:"Peru",nombre:"Peru21", hastag:"@Perú21.pe" },//5minutos
-                     {id:102734169764795, urlface:"https://www.facebook.com/Tromepe",url:"http://trome.pe/",pais:"Peru",nombre:"Trome", hastag:"@Trome" },//5minutos
+                     {id:102734169764795, urlface:"https://www.facebook.com/Tromepe",url:"http://trome.pe",pais:"Peru",nombre:"Trome", hastag:"@Trome" },//5minutos
                      {id:183538434997743, urlface:"https://www.facebook.com/Gestionpe",url:"http://gestion.pe",pais:"Peru",nombre:"Gestion]", hastag:"@Diario Gestión" },//5minutos
                      {id:174837395908068, urlface:"https://www.facebook.com/publimetrope",url:"http://publimetro.pe",pais:"Peru",nombre:"Publimetro", hastag:"@Publimetro" }//5minutos
 
                   ];
 
-                var paginas15minutos =[{id:97984508920, urlface:"https://www.facebook.com/DiarioOjo",url:"http://ojo.pe/",pais:"Peru",nombre:"Diario Ojo", hastag:"@Diario Ojo" },//cada 15minutos
-                                       {id:143959365656931, urlface:"https://www.facebook.com/diario.expreso",url:"http://www.expreso.com.pe/",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" }, //cada 15minutos
-                                       {id:202297179961677, urlface:"https://www.facebook.com/elshowperu",url:"http://elshow.pe/",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" }, //cada 15minutos
-                                       {id:611091235574314, urlface:"https://www.facebook.com/SEMANAeconomica",url:"http://semanaeconomica.com/",pais:"Peru",nombre:"Semana Economica", hastag:"@SEMANAeconómica" },
+                var paginas15minutos =[{id:97984508920, urlface:"https://www.facebook.com/DiarioOjo",url:"http://ojo.pe",pais:"Peru",nombre:"Diario Ojo", hastag:"@Diario Ojo" },//cada 15minutos
+                                       {id:143959365656931, urlface:"https://www.facebook.com/diario.expreso",url:"http://www.expreso.com.pe",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" }, //cada 15minutos
+                                       {id:202297179961677, urlface:"https://www.facebook.com/elshowperu",url:"http://elshow.pe",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" }, //cada 15minutos
+                                       {id:611091235574314, urlface:"https://www.facebook.com/SEMANAeconomica",url:"http://semanaeconomica.com",pais:"Peru",nombre:"Semana Economica", hastag:"@SEMANAeconómica" },
 
-                                       {id:1105050716183235, urlface:"https://www.facebook.com/seriestv.peliculas",url:"http://laprensa.peru.com/",pais:"Peru",nombre:"La Prensa.pe", hastag:"@Series y Novelas" },//cada hora 9am 12pm
-                                       {id:143959365656931, urlface:"https://www.facebook.com/diario.expreso",url:"http://www.expreso.com.pe/",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" },
-                                       {id:1466684106954251, urlface:"https://www.facebook.com/diariounolevano",url:"http://diariouno.pe/",pais:"Peru",nombre:"Diario Uno", hastag:"@Diario UNO - Lima Perú" },//cada hora 11am - 12pm
+                                       {id:1105050716183235, urlface:"https://www.facebook.com/seriestv.peliculas",url:"http://laprensa.peru.com",pais:"Peru",nombre:"La Prensa.pe", hastag:"@Series y Novelas" },//cada hora 9am 12pm
+                                       {id:143959365656931, urlface:"https://www.facebook.com/diario.expreso",url:"http://www.expreso.com.pe",pais:"Peru",nombre:"Diario Expreso", hastag:"@Diario Expreso" },
+                                       {id:1466684106954251, urlface:"https://www.facebook.com/diariounolevano",url:"http://diariouno.pe",pais:"Peru",nombre:"Diario Uno", hastag:"@Diario UNO - Lima Perú" },//cada hora 11am - 12pm
                                        {id:356259204423835, urlface:"https://www.facebook.com/NuevoSolPeru",url:"http://diarionuevosol.pe",pais:"Peru",nombre:"Diario Nuevo Sol", hastag:"@Diario Nuevo Sol" },//10 articulos cada 2 dias todos a la misma vez
-                                       {id:671367792939507, urlface:"https://www.facebook.com/OjoPublico",url:"http://ojo-publico.com/",pais:"Peru",nombre:"Ojo Público", hastag:"@OjoPúblico" },//cada dia
+                                       {id:671367792939507, urlface:"https://www.facebook.com/OjoPublico",url:"http://ojo-publico.com",pais:"Peru",nombre:"Ojo Público", hastag:"@OjoPúblico" },//cada dia
                                        {id:293890978996, urlface:"https://www.facebook.com/IDLReporteros",url:"https://idl-reporteros.pe",pais:"Peru",nombre:"IDL-Reporteros", hastag:"@IDL-Reporteros" },//cada dia
                                        {id:561717720516148, urlface:"https://www.facebook.com/ASBANCPeru",url:"http://www.asbanc.com.pe",pais:"Peru",nombre:"Asbanc", hastag:"@Asbanc - Asociación de Bancos del Perú" },//cada hora
                                        {id:611091235574314, urlface:"https://www.facebook.com/RumboEconomicoGlobal",url:"http://rumboeconomico.com",pais:"Peru",nombre:"Rumbo Economico", hastag:"@Rumbo Económico" }, //por verse
                                        {id:109939959032422, urlface:"https://www.facebook.com/agenciandina/",url:"http://www.andina.com.pe",pais:"Peru",nombre:"Andina", hastag:"@Agencia de Noticias Andina" },
                                        {id:561717720516148, urlface:"https://www.facebook.com/ASBANCPeru",url:"http://www.asbanc.com.pe",pais:"Peru",nombre:"Asbanc", hastag:"@Asbanc - Asociación de Bancos del Perú" },
-                                       {id:611091235574314, urlface:"https://www.facebook.com/SEMANAeconomica",url:"http://semanaeconomica.com/",pais:"Peru",nombre:"Semana Economica", hastag:"@SEMANAeconómica" },// por verse cada media hora
+                                       {id:611091235574314, urlface:"https://www.facebook.com/SEMANAeconomica",url:"http://semanaeconomica.com",pais:"Peru",nombre:"Semana Economica", hastag:"@SEMANAeconómica" },// por verse cada media hora
                                        {id:293890978996, urlface:"https://www.facebook.com/IDLReporteros",url:"https://idl-reporteros.pe",pais:"Peru",nombre:"IDL-Reporteros", hastag:"@IDL-Reporteros" },
                                        {id:561717720516148, urlface:"https://www.facebook.com/ASBANCPeru",url:"http://www.asbanc.com.pe",pais:"Peru",nombre:"Asbanc", hastag:"@Asbanc - Asociación de Bancos del Perú" },
                                        {id:611091235574314, urlface:"https://www.facebook.com/RumboEconomicoGlobal",url:"http://rumboeconomico.com",pais:"Peru",nombre:"Ojo Público", hastag:"@OjoPúblico" }
@@ -68,31 +69,61 @@ $(function() {
 
 function sacarpostyguardar(paginas){
   var ide;
+  alert(paginas.length);
     for (i in paginas){
        ide=paginas[i].id.toString();
        alert(ide);
-       FB.api(ide,{"fields":"id,name,posts.limit(1){created_time,type,message,link,name,description,caption,full_picture,picture,status_type}"},
+       //fb es asincrona asi que deuuelve cualquier periodico no en el orden del for anterior      
+       //,fan_count,
+       FB.api(ide,{"fields":"id,name,username,link,phone,start_info,location,cover,emails,website,about,mission,posts.limit(1){created_time,type,message,link,name,description,caption,full_picture,picture,status_type}"},
        function(response) {
-          console.log(response);
+
           alert('Nombre: ' + response.name+" type :, url:"+ response.posts.data[0].link+", caption:" +response.posts.data[0].caption);
 
-          console.log(response.posts);
-          console.log(paginas[i].url.indexOf(response.posts[0].caption));
-         if ((response.posts[0].type=="link") { //valida si es un post de enlace - no es video ni foto
-             if (paginas[i].url.indexOf(response.posts.data[0].caption))  //es un articulo valido asi que envialo como en un post a nuestra servidor para analizar que tipo de articulo es ahi.
+          //valida si es un post de facebook de pagina propia(puede compartir cualqueir typo videos phtos estado)
+         if ((response.posts.data[0].link.indexOf(response.link))>=0) {
+            console.log("valio la condicion articulo de facebook propio:");
+            alert('Articulo de facebook propio: ' +response.name+" :" );
+            //nota: falta enviar el articulo en un json cosntruirlo
 
-                 //hacer metodo httppost para enviar el post con todos los datos del response y los datos de pagina[i] todo en un json
+          }else{// otras paginas de facebook types=photos,videos,status
+            //2 su pagina web propia type=link photos videos
+            //3 otras paginas de internet tmb link photos videos
+             //(Solo nos interesa la 2 comrpueblo si tiene en la url de su wbesite en facebook)
+            num=response.website.indexOf(response.posts.data[0].caption);
+            if (num>=0){
+              //2 se cumple la condicion de ser link de web propia
+              //se comprobo gracias a que tenia el link de su website en su pagina de facebook
+
+              //Nota: falta enviar el articulo en un json cosntruirlo
+
+            }else{
+
+               //sino tiene el enlace valido comprobar si es un link externo a traves de comrpobarlo con nuestro propio arreglo donde esta su url
+               for (j=0;j<paginas.length;j++){
+
+                 alert(j);
+                 var int=paginas[j].url.indexOf(response.posts.data[0].caption);
+                   alert(int);
+                 if (int>0){//es un articulo valido asi que envialo como en un post a nuestra servidor para analizar que tipo de articulo es ahi.
+                      alert(' entro: al envio es de la misma pagina' );
+                       //Nota: hacer metodo httppost para enviar el post con todos los datos del response y los datos de pagina[i] todo en un json
+                      return;
+                   }
+               }
 
 
-             }
-                       console.log("valio la condicion :"+response.posts);
-                        alert('Nombre entro: ' + response.id+response.name+" :" );
-         }
-
-        } );
-    }
 
 
+            }
+
+
+
+          };
+
+         });
+
+  };
 };
 
       FB.Event.subscribe('auth.authResponseChange', function(response) {

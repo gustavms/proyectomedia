@@ -10,21 +10,21 @@ var $ = require("jquery");
 
 const PORT = 3000;
 //nose sabe a que hora se cuelgan lso articulos pero debe ser entre las 8am y las 6pm porq es trabajo del estado de L a V
-linkpaginas=[{url:"http://www.apn.gob.pe/site/noticias.aspx",nombre:"AUTORIDAD PORTUARIA NACIONAL" , frecuenciaarticulosnuevos: }, //1 articulo al dia
-             {url:"http://www2.trabajo.gob.pe/prensa/notas-de-prensa",nombre:"Ministerio de Trabajo" , frecuenciaarticulosnuevos: },//1 al dia
-             {url:"http://www.sbn.gob.pe/noticias_hist.php",nombre: , frecuenciaarticulosnuevos: }, //1 o 2 cada 2 dias
-             {url:"http://www.apci.gob.pe/index.php/noticias",nombre: , frecuenciaarticulosnuevos: }, //2 o 3  cada 3 dias
-             {url:"http://www.igss.gob.pe/portal/index.php/joomla/contentall-comcontent-views/category-list",nombre:"Gestion de servicios de salud" , frecuenciaarticulosnuevos: },
-             {url:"http://www.minsa.gob.pe/index.asp?op=5#Prensa",nombre:L , frecuenciaarticulosnuevos: },//6 articulso al dia
-             {url:"http://www.rree.gob.pe/noticias/Paginas/Notas_de_Prensa.aspx",nombre: , frecuenciaarticulosnuevos: },//1 al dia
-             {url:"http://www.rree.gob.pe/noticias/Paginas/NotasInformativas.aspx",nombre: , frecuenciaarticulosnuevos: }, //6 al dia
-             {url:"http://www.sedena.gob.pe/prensa.html",nombre: , frecuenciaarticulosnuevos: },//1 al mes
-             {url:"http://www.itp.gob.pe/index.php/publicaciones/ultimas-noticias",nombre:"Instituto de Producci´n" , frecuenciaarticulosnuevos: },
-             {url:"http://www.apn.gob.pe/site/noticias.aspx",nombre: , frecuenciaarticulosnuevos: }
+linkwebpaginas=[{url:"http://www.apn.gob.pe/site/noticias.aspx",nombre:"AUTORIDAD PORTUARIA NACIONAL" , frecuenciaarticulosnuevos:"" },
+             {url:"http://www2.trabajo.gob.pe/prensa/notas-de-prensa",nombre:"Ministerio de Trabajo" , frecuenciaarticulosnuevos:"" },//1 al dia
+             {url:"http://www.sbn.gob.pe/noticias_hist.php",nombre:"Superintencia de banca y seguros" , frecuenciaarticulosnuevos:"" }, //1 o 2 cada 2 dias
+             {url:"http://www.apci.gob.pe/index.php/noticias",nombre:"APCI" , frecuenciaarticulosnuevos:"" }, //2 o 3  cada 3 dias
+             {url:"http://www.igss.gob.pe/portal/index.php/joomla/contentall-comcontent-views/category-list",nombre:"Gestion de servicios de salud" , frecuenciaarticulosnuevos:"" },
+             {url:"http://www.minsa.gob.pe/index.asp?op=5#Prensa",nombre:"Ministerio de Salud" , frecuenciaarticulosnuevos:"" },//6 articulso al dia
+             {url:"http://www.rree.gob.pe/noticias/Paginas/Notas_de_Prensa.aspx",nombre:"" , frecuenciaarticulosnuevos:"" },//1 al dia
+             {url:"http://www.rree.gob.pe/noticias/Paginas/NotasInformativas.aspx",nombre:"" , frecuenciaarticulosnuevos:"" }, //6 al dia
+             {url:"http://www.sedena.gob.pe/prensa.html",nombre:"" , frecuenciaarticulosnuevos:"" },//1 al mes
+             {url:"http://www.itp.gob.pe/index.php/publicaciones/ultimas-noticias",nombre:"Instituto de Producci´n" , frecuenciaarticulosnuevos:"" },
+             {url:"http://www.apn.gob.pe/site/noticias.aspx",nombre:"" , frecuenciaarticulosnuevos:"" }
 
 
 
-           ]
+           ];
 
 /* usar cheerio en estas paginas
    //
@@ -139,7 +139,7 @@ function revisarsiesnuevo1(url,callback){
 // revisa cada periodico y si tiene nuevos articulos lo enviara a la categorias
 function Revisarperiodico(periodico){
 
-     sacarposts(periodico,function(nuevo,databruta){
+   sacarposts(periodico,function(nuevo,databruta){
     /*logica
     If(nuevo){
       var post=reordenarpost(databruta);
@@ -153,11 +153,11 @@ function Revisarperiodico(periodico){
 
 
 function sacarpostdeperiodicos(){
-    for (var i=0; i<linkpaginas.length; i++){
+    for (var i=0; i<linkwebpaginas.length; i++){
        //sacamos periodico por periodico
          console.log("sacarperiodicos");
-       setTimeout(Revisarperiodico(linkpaginas[i]),0);
-         console.log(linkpaginas[i].pais);
+    //   setTimeout(Revisarperiodico(linkwebpaginas[i]),0);
+         console.log(linkwebpaginas[i].nombre);
     };
 };
 
@@ -178,6 +178,16 @@ app.get('/', function(req, res,next){
    console.log("finaldetodo");
   });
 
+  app.get('/guardarpost', function(req, res,next){
+       fs.readFile("index.html", function (err, fileBuffer) {
+             if (err) {
+                 return next(err); // Tell express to handle errors
+             }
+             res.send(fileBuffer.toString());
+             });
+     console.log("finaldetodo");
+    });
+
 
 app.listen(PORT, function(){
 
@@ -188,3 +198,5 @@ app.listen(PORT, function(){
   //    sersetInterval(publicarpostenpaginafacebook,600 000); Publicar cada 10minutos
     console.log("finaldetodoautomatico");
 });
+app.use(express.json());
+app.use(express.urlencoded())
