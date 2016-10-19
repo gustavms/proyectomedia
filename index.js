@@ -12,55 +12,24 @@ var path = require('path');
 var $ = require("jquery");
 var data= require('./lista.js');
 var Noticia=require('./noticia.js');
-var mongoose = require('mongoose');
-var FB = require('fb');
-
-
-mongoose.Promise = require('bluebird');
-
-// mongoose.Promise = Promise;
-mongoose.connect('mongodb://gustavo:gustavo@ds021166.mlab.com:21166/noticias',
- function(err,res){
-    if(err) console.log ('error: coenctado a la bd :'+ err);
-    else console.log('conexion a la bd realizada');
- });
-
-/*
-mongoose.Promise = require('bluebird');
-var db= mongoose.createConnection('mongodb://gustavo:gustavo@ds021166.mlab.com:21166/noticias',
-function(err,res){
-   if(err) console.log ('error: coenctado a la bd :'+ err);
-   else console.log('conexion a la bd realizada');
-
-});
-*/
-
-var Canalpolitica=mongoose.model('canalpolitica',Noticia);
-var Canaleconomia=mongoose.model('canaleconomia',Noticia);
-var Canalsctualidad=mongoose.model('actualidad',Noticia);
-
+const firebase = require('firebase');
+var sha1 = require('sha1');
 const PORT = 3000;
-
 
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(morgan('dev'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }))
+console.log("My http server listening on port " + PORT + "...");
 
-linkwebpaginas=[{url:"http://www.apn.gob.pe/site/noticias.aspx",nombre:"AUTORIDAD PORTUARIA NACIONAL" , frecuenciaarticulosnuevos:"" },
-             {url:"http://www2.trabajo.gob.pe/prensa/notas-de-prensa",nombre:"Ministerio de Trabajo" , frecuenciaarticulosnuevos:"" },//1 al dia
-             {url:"http://www.sbn.gob.pe/noticias_hist.php",nombre:"Superintencia de banca y seguros" , frecuenciaarticulosnuevos:"" }, //1 o 2 cada 2 dias
-             {url:"http://www.apci.gob.pe/index.php/noticias",nombre:"APCI" , frecuenciaarticulosnuevos:"" }, //2 o 3  cada 3 dias
-             {url:"http://www.igss.gob.pe/portal/index.php/joomla/contentall-comcontent-views/category-list",nombre:"Gestion de servicios de salud" , frecuenciaarticulosnuevos:"" },
-             {url:"http://www.minsa.gob.pe/index.asp?op=5#Prensa",nombre:"Ministerio de Salud" , frecuenciaarticulosnuevos:"" },//6 articulso al dia
-             {url:"http://www.rree.gob.pe/noticias/Paginas/Notas_de_Prensa.aspx",nombre:"" , frecuenciaarticulosnuevos:"" },//1 al dia
-             {url:"http://www.rree.gob.pe/noticias/Paginas/NotasInformativas.aspx",nombre:"" , frecuenciaarticulosnuevos:"" }, //6 al dia
-             {url:"http://www.sedena.gob.pe/prensa.html",nombre:"" , frecuenciaarticulosnuevos:"" },//1 al mes
-             {url:"http://www.itp.gob.pe/index.php/publicaciones/ultimas-noticias",nombre:"Instituto de Producci´n" , frecuenciaarticulosnuevos:"" },
-             {url:"http://www.apn.gob.pe/site/noticias.aspx",nombre:"" , frecuenciaarticulosnuevos:"" }
-
-           ];
+firebase.initializeApp({
+apiKey: "AIzaSyCcCUyiGVZWi_e-e5wRl8YWFV_hK7GNxkc",
+authDomain: "proyecto-media.firebaseapp.com",
+databaseURL: "https://proyecto-media.firebaseio.com",
+storageBucket: "",
+messagingSenderId: "650128597882"
+});
 
 
 
@@ -97,8 +66,7 @@ FB.api(
 
      console.log(response.authResponse);
       console.log("se publico");
-  }
-);
+  });
 
 };
 
@@ -111,82 +79,68 @@ app.get('/', function(req, res,next){
            res.send(fileBuffer.toString());
            });
    console.log("finaldetodo");
-  });
+});
 
 
 
 app.use('/endpoint', function(req, res, next){
     console.log("midleweare");
-    //logica para diferenciarlo en que categoria poner
-    next();
+  req.body.categoria="politica";
+next();
+  /*
+    if (req.body.categoria=="economia"){var newnoticia= new CanalEconomia(); newnoticia};
+    if (req.body.categoria=="politica"){};
+    if (req.body.categoria=="actualidad"){};
+    if (req.body.categoria=="seguridad"){};
+    if (req.body.categoria=="empresarial"){};
+    if (req.body.categoria=="gastronomia"){};
+    if (req.body.categoria=="gastronomia"){};
+    */
 })
 
 app.post('/endpoint', function(req, res){
 
-var noticia= new Canalpolitica({
-categoria:req.body.categoria,
-creator:req.body.creator,
-type:req.body.type,
-message:req.body.message,
-title:req.body.title,
-picture:req.body.picture,
-link:req.body.link,
-se_publico:"false"
-});
 
-console.log(" tipo 2:" + noticia);
-console.log(" tipo 3:" + JSON.stringify(noticia));
-console.log("////");
+var _id= sha1(JSON.stringify(req.body));
+var _new = {
+    id: _id,
+    date: req.body.creator,
+    type:req.body.type,
+    username: req.body.username,
+    message: req.body.message,
+    title: req.body.title,
+    imageUrl: req.body.picture,
+    url: req.body.link,
+    source: req.body.caption,
+    content: '',
 
-console.log(JSON.stringify(noticia.type));
-console.log(noticia.message);
-console.log(noticia.title);
+}
 
-     noticia.save().then(function(){
-            return res.status(200).send();
-    },function(err){
-      if (err){
-         console.log(err);
-         return res.status(500).send();
-      }
+    var categoria = "'"+req.body.categoria+"'";
+    var newsRef = firebase.database().ref('news');
 
-     });
+    newsRef.child(categoria).child(_new.id).set(_new, snapshot => {
+     snapshot;
 
-/*
-     noticia.save(function(err){
+    });
 
-       if (err){
-          console.log(err);
-          return res.status(500).send();
-       }
-       return res.status(200).send();
-     })
+   newsRef.on('value', snapshot => {
+       snapshot
 
-  /*
-  if (req.body.categoria=="economia"){var newnoticia= new CanalEconomia(); newnoticia};
-  if (req.body.categoria=="politica"){};
-  if (req.body.categoria=="actualidad"){};
-  if (req.body.categoria=="seguridad"){};
-  if (req.body.categoria=="empresarial"){};
-  if (req.body.categoria=="gastronomia"){};
-  if (req.body.categoria=="gastronomia"){};
-  */
-
+    });
 
 });
-
 
 
 app.listen(PORT, function(){
 
-    console.log("My http server listening on port " + PORT + "...");
-    fb = new FB.Facebook({appId: '1009400082482524', appSecret: '5f048a33772e36ca38c57bc696884ba2'});
+  //  fb = new FB.Facebook({appId: '1009400082482524', appSecret: '5f048a33772e36ca38c57bc696884ba2'});
 
-    console.log("Paginas de facebook api graf");
-    publicarpostenpaginafacebook();
+  //  publicarpostenpaginafacebook();
   //  sacarpostdeperiodicos();
   //    setInterval(sacarpostdeperiodicos,1000*60*60*12); Paraque lo realize cada 5minutos
   //    sersetInterval(publicarpostenpaginafacebook,600 000); Publicar cada 10minutos
 
     console.log("finaldetodoautomatico");
+
 });

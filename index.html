@@ -38,12 +38,13 @@ var paginascadadia =[{id:1105050716183235, urlface:"https://www.facebook.com/ser
 
 </head>
 <body>
+
 <p>Iniciar sesi&oacute;n con Facebook:cambio1</p>
 <fb:login-button perms="email,user_birthday,manage_pages,publish_pages"></fb:login-button>
 
 <button id="bu" type="button" name="ejecutar" onclick="ingresa()">ejecutar</button>"
 <script src="http://codeorigin.jquery.com/jquery-1.10.2.min.js"></script>
-
+<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
 
 
@@ -98,6 +99,7 @@ function sacarpostyguardar(paginas){
                  data.message=response.posts.data[0].message;
                  data.link=response.posts.data[0].link;
                  data.picture=response.posts.data[0].full_picture;
+                 data.caption=response.posts.data[0].caption;
                  if (response.posts.data[0].description ){
                    data.description=response.posts.data[0].description}
 
@@ -134,6 +136,7 @@ function sacarpostyguardar(paginas){
                     data.message=response.posts.data[0].message;
                     data.link=response.posts.data[0].link;
                     data.picture=response.posts.data[0].full_picture;
+                    data.caption=response.posts.data[0].caption;
                     if (response.posts.data[0].description ){
                       data.description=response.posts.data[0].description}
 
@@ -172,6 +175,7 @@ function sacarpostyguardar(paginas){
                             data.message=response.posts.data[0].message;
                             data.link=response.posts.data[0].link;
                             data.picture=response.posts.data[0].full_picture;
+                            data.caption=response.posts.data[0].caption;
                             if (response.posts.data[0].description ){
                               data.description=response.posts.data[0].description}
 

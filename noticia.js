@@ -9,7 +9,7 @@ var mongoose = require ('mongoose');
    hashtag:String,//solo si se saca de facebook sino no tiene
     title:String,
     picture:String,
-    content:String //solo si se saca de la web
+    content:String, //solo si se saca de la web
     link:String,
     se_publico:String
 
