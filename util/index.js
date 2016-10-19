@@ -3,27 +3,39 @@ const cheerio = require('cheerio');
 
 module.export = {
 
-    getOriginalUrlFromShort
+    unshortUrl
 }
 
-function getOriginalUrlFromShort(shortUrl) {
+function unshortUrl(shortUrl) {
 
     return new Promise((resolve, reject) => {
 
-        request
-            .post({
-                url: "http://urlex.org",
-                form: { s: shortUrl }
-            }, (err, response) => {
+        if (isShort(shortUrl)) {
 
-                if (err) throw new Error("Error");
+            request
+                .post({
+                    url: "http://urlex.org",
+                    form: { s: shortUrl }
+                }, (err, response) => {
 
-                var $ = cheerio.load(response.body);
+                    if (err) throw new Error("Error");
 
-                var url = $('table td a').first().attr('href');
+                    var $ = cheerio.load(response.body);
 
-                resolve(url);
-            });
+                    var url = $('table td a').first().attr('href');
+
+                    resolve(url);
+                });
+
+        } else {
+
+            resolve(shortUrl);
+        }
 
     });
+}
+
+function isShort(url) {
+
+    return /\/\/(bit.ly|goo.gl)/g.test(url);
 }
